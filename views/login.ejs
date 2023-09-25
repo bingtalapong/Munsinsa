@@ -1,0 +1,64 @@
+<!-- RMIT University Vietnam
+  Course: COSC2430 Web Programming
+  Semester: 2023A
+  Assessment: Assignment 2
+  Author: Nguyen Hoang Phuong, Nguyen Thach Khanh Dzi, Hanjun Lee, Taesung Yoon, Pham Le Gia Huy
+  ID: S3924593, S3980883, S3732878, S3847581, S3975371
+  Acknowledgement: Acknowledge the resources that you use here.  -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MUSINSA</title>
+    <link rel="stylesheet" href="/css/login.css">
+  
+</head>
+<body>
+
+    <h1>Login Form</h1>
+    <div style="color: red;" id="error-message"></div>
+    <form action="/login" method="post" onsubmit="return validateForm()">
+      <script>
+        function validateForm() {
+            const username = document.querySelector('input[name="username"]').value;
+            const password = document.querySelector('input[name="password"]').value;
+            const errorMessage = document.getElementById('error-message');
+        
+            if (username.trim() === '' || password.trim() === '') {
+                errorMessage.innerText = 'Please fill in both fields.';
+                return false; // Prevent form submission
+            }
+            // If both fields are filled, allow form submission
+            return true;
+        }
+        </script>
+    <form action="/login" method="post" >
+        <div class="container action" id="register-as">
+            <label for="action">Login as: </label>
+            <select name="action" id="action">
+                <option value="Customer">Customer</option>
+                <option value="Vendor">Vendor</option>
+                <option value="Shipper">Shipper</option>
+            </select>
+        </div>
+        <input placeholder="Name" name="username" type="text">
+        <br>
+        <input placeholder="Password" name="password" type="password">
+        <br>
+        <input class="sub" type="submit">
+     <h3>Dont have a account ?</h3>
+     <a id="regiscus" style="    color: blanchedalmond; display: none;" href="/register/customer">Create a new customer account</a>
+
+     <a id="regisven" style="    color: blanchedalmond;display: none;" href="/register/vendor">Create a new vendor account</a>
+
+     <a id="regisship" style="    color: blanchedalmond;display: none;" href="/register/shipper">Create a new shipper account</a>
+    </form>
+    
+    <script src="/js/function.js"></script>
+    
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!-- RMIT University Vietnam
+  Course: COSC2430 Web Programming
+  Semester: 2023A
+  Assessment: Assignment 2
+  Author: Nguyen Hoang Phuong, Nguyen Thach Khanh Dzi, Hanjun Lee, Taesung Yoon, Pham Le Gia Huy
+  ID: S3924593, S3980883, S3732878, S3847581, S3975371
+  Acknowledgement: Acknowledge the resources that you use here.  -->
+
+
+<%- include('./partials/header') %> <%- include('./partials/nav') %>
+
+<main>
+  <div id="category_pages" class="container">
+    <h2 class="fw-bolder category_page_name">
+      Result of searched by <%= searchText %>
+    </h2>
+    <hr />
+
+    <div class="col-lg-10 col-xs-10 col-xl justify-content-center container">
+      <div
+        data-bs-spy="scroll"
+        data-bs-target="#simple-list-example"
+        data-bs-offset="0"
+        data-bs-smooth-scroll="true"
+        class="scrollspy-example"
+        tabindex="0"
+      >
+        <div id="category_products">
+          <h4>Total : <%= products.length%> products</h4>
+          <br />
+          <!-- Number of Items -->
+
+          <!-- PRODUCTS -->
+          <div class="products">
+            <!-- ROW -->
+            <div class="row" id="rowItems">
+              <!-- COL -->
+              <% products.forEach(function(product){ %>
+
+              <div
+                class="col-sm-12 col-md-6 col-lg-4 mb-4 category_product card shadow-sm"
+                style="width: 18rem"
+              >
+                <a href="http://www.localhost:3000/products/<%= product.id %>">
+                  <img
+                    src="/image/<%= product.images[0] %>"
+                    class="card-img-top"
+                    alt="procutImage"
+                  />
+                </a>
+
+                <div class="card-body">
+                  <a style="text-decoration-line: none"
+                    ><h5 class="card-title"><%= product.brand%></h5></a
+                  >
+                  <p class="card-text"><%= product.name%></p>
+                  <p class="card-text">$<%= product.price%></p>
+                </div>
+              </div>
+
+              <% }); %>
+
+              <!-- COL -->
+            </div>
+            <!-- ROW -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<%- include('./partials/footer') %>

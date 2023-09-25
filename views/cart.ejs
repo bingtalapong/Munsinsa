@@ -1,0 +1,97 @@
+<!-- RMIT University Vietnam
+  Course: COSC2430 Web Programming
+  Semester: 2023A
+  Assessment: Assignment 2
+  Author: Nguyen Hoang Phuong, Nguyen Thach Khanh Dzi, Hanjun Lee, Taesung Yoon, Pham Le Gia Huy
+  ID: S3924593, S3980883, S3732878, S3847581, S3975371
+  Acknowledgement: Acknowledge the resources that you use here.  -->
+
+
+<%- include('./partials/header') %> <%- include('./partials/nav') %><main>
+        <div class="col container">
+          <div class="container">
+            <% if(cart.length == 0){ %>
+              <h2 style=" font-family: Georgia, serif;">Your cart list is empty.</h2>
+              <% } %>
+            <% cart.forEach((product, index)=>{ %>
+            <div class="card mb-3" style="max-width: 600px">
+              <div class="row g-0">
+                <div class="col-md-4">
+                  <img
+                    src="image/<%= product.image%>"
+                    class="img-fluid rounded-start"
+                    alt="..."
+                  />
+                </div>
+
+                <div class="col-md-8">
+                  <div class="card-body">
+                    <h5 class="card-title"><%=product.brand %></h5>
+                    <p class="card-text"><%=product.name %></p>
+                    <form action="/cart/update/<%= product.id%>" method="POST" id="myForm<%= index%>">
+                      <select id ="mySelect<%= index%>" name="quantity" id="quantity" class="form-select" aria-label="Default select example">
+                        <option selected>Quantity: <%= product.quantity %></option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                      </select>
+                      <input id="quantity" value = "Submit" type="submit" hidden="">
+                    </form>
+                    <br />
+                    <button onclick = "location.href = '/cart/delete/<%= product._id%>'" type="button" class="btn btn-light">Remove</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <% })%>
+          </div>
+        </div>
+
+        <!-- total price -->
+        <div class="col container">
+          <div>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">Subtotal(<%= cart.reduce((accumulator, product) => accumulator + product.quantity, 0); %>)</th>
+                  <th scope="col">$<%= cart.reduce((accumulator, product) => accumulator + (product.price * product.quantity), 0).toFixed(2); %></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">Shipping</th>
+                  <td>$0</td>
+                </tr>
+                <tr>
+                  <th scope="row">Duties and Taxes</th>
+                  <td>$<%= (0.1 * cart.reduce((accumulator, product) => accumulator + (product.price * product.quantity), 0)).toFixed(2); %></td>
+                </tr>
+                <tr>
+                  <th scope="row"><h5>Total(<%= cart.reduce((accumulator, product) => accumulator + product.quantity, 0); %>)</h5></th>
+                  <td>USD $<%= (1.1 * cart.reduce((accumulator, product) => accumulator + (product.price * product.quantity), 0)).toFixed(2); %></td>
+                </tr>
+              </tbody>
+            </table>
+
+            <button onclick= "location.href='/order'" type="button" class="btn btn-dark order" style="max-width: 300px">Order</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <script>
+    <% cart.forEach((product, index) => { %>
+      const selectElement<%= index %> = document.getElementById("mySelect<%= index %>");
+      const formElement<%= index %> = document.getElementById("myForm<%= index %>");
+  
+      selectElement<%= index %>.addEventListener("change", function () {
+        formElement<%= index %>.submit();
+      });
+    <% }) %>
+  </script>
+
+</main>
+<%- include('./partials/footer') %>

@@ -1,0 +1,117 @@
+<!-- RMIT University Vietnam
+  Course: COSC2430 Web Programming
+  Semester: 2023A
+  Assessment: Assignment 2
+  Author: Nguyen Hoang Phuong, Nguyen Thach Khanh Dzi, Hanjun Lee, Taesung Yoon, Pham Le Gia Huy
+  ID: S3924593, S3980883, S3732878, S3847581, S3975371
+  Acknowledgement: Acknowledge the resources that you use here.  -->
+
+
+<%- include('./partials/header') %> <%- include('./partials/nav') %>
+<main>
+  <div class="container">
+    <div class="row">
+      <div class="col-9">
+        <h1 class="mb-3">Order </h1>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="row">
+        <!-- items -->
+        <form action="/order/add" method="post">
+          <div class="col-6">
+            <div class="container">
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col">
+              <h3>Name</h3>
+            </div>
+            <div class="col">
+              <h3>Unit Price</h3>
+            </div>
+            <div class="col">
+              <h3>Amount</h3>
+            </div>
+            <div class="col">
+              <h3>Price</h3>
+            </div>
+          </div>
+          <hr>
+          <!-- Procuts in the cart -->
+          <% carts.forEach(function(cart){ %>
+          <div class="row">
+            <div class="col">
+              <div><%= cart.name %></div>
+            </div>
+            <div class="col">
+              <div>$<%= cart.price %></div>
+            </div>
+            <div class="col">
+              <div><%= cart.quantity %></div>
+            </div>
+            <div class="col">
+              <div>$<%= cart.price * cart.quantity %></div>
+            </div>
+          </div>
+          <hr>
+
+          <% }); %>
+          <!-- Address -->
+          <div class="row mb-4">
+            <h3 class="col-2">Address</h3>
+            <input class="col-8 mb-5" name="address" placeholder="Please type your address" type="text">
+          </div>
+          <hr>
+          <!-- Distribution Hub -->
+          <div class="row mb-4">
+            <label for="hub" class="col-3">
+              <h3>Distribution Hub</h3>
+            </label>
+            <select class="col-1" name="hub" id="hub">
+              <option value="">Hanoi</option>
+              <option value="Danang">Danang</option>
+              <option value="HCMC">Ho Chi Minh</option>
+            </select>
+          </div>
+          <hr>
+          <!-- total price -->
+          <div class="col-4">
+            <div class="container">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Subtotal(<%= carts.reduce((accumulator, product) => accumulator + product.quantity, 0); %>)</th>
+                    <th scope="col">$<%= carts.reduce((accumulator, product) => accumulator + (product.price * product.quantity), 0).toFixed(2); %></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">Shipping</th>
+                    <td>$0</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Duties and Taxes</th>
+                    <td>$<%= (0.1 * carts.reduce((accumulator, product) => accumulator + (product.price * product.quantity), 0)).toFixed(2); %></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">
+                      <h5>Total(<%= carts.reduce((accumulator, product) => accumulator + product.quantity, 0); %>)</h5>
+                    </th>
+                    <td>USD $<%= (1.1 * carts.reduce((accumulator, product) => accumulator + (product.price * product.quantity), 0)).toFixed(2); %></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="row">
+            <button type="submit button" class="btn btn-dark col-2 order">Confirm</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</main>
+<%- include('./partials/footer') %>

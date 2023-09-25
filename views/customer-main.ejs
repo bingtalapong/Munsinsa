@@ -1,0 +1,96 @@
+<!-- RMIT University Vietnam
+  Course: COSC2430 Web Programming
+  Semester: 2023A
+  Assessment: Assignment 2
+  Author: Nguyen Hoang Phuong, Nguyen Thach Khanh Dzi, Hanjun Lee, Taesung Yoon, Pham Le Gia Huy
+  ID: S3924593, S3980883, S3732878, S3847581, S3975371
+  Acknowledgement: Acknowledge the resources that you use here.  -->
+
+
+<%- include('./partials/header.ejs') %><%- include('./partials/nav.ejs') %>
+
+
+<body>
+
+  <div class="products">
+    <div class="row g- justify-content-center">
+      <h1 style="text-align: center;">TOPS</h1>
+      <% for (let index=0; index < 6; index++) { %>
+      <div class=" col-md-3 c col-sm-4 justify-self-center" id="item-sect">
+
+        <a href="http://www.localhost:3000/customer/Product/<%=tops[index].id%>">
+          <img class="js-products-img3" src="/image/<%= tops[index].images[0] %>" class="d-block w-100" alt="..." />
+        </a>
+        </form>
+        <p>
+          <%=tops[index].brand %>
+        </p>
+        <p>
+          <%=tops[index].name %>
+        </p>
+      </div>
+      <% } %>
+      <br>
+
+      <h1 style="text-align: center;">PANTS</h1>
+      <% for( let index=0; index < 6; index++ ) { %>
+      <div class=" col-md-3 c col-sm-4 justify-self-center" id="item-sect">
+        <a href="http://www.localhost:3000/customer/Product/<%=pants[index].id%>">
+          <img class="js-products-img3" src="/image/<%= pants[index].images[0] %>" class="d-block w-100" alt="..." />
+        </a>
+
+        <p>
+          <%=pants[index].brand%>
+        </p>
+        <p>
+          <%=pants[index].name%>
+        </p>
+        <p>
+          <%=pants[index].price%>
+        </p>
+      </div>
+      <% } %>
+      <br>
+
+      <h1 style="text-align: center;">SHOES</h1>
+      <% for( let index=0; index < 6; index++ ) { %>
+      <div class=" col-md-3 c col-sm-4 justify-self-center" id="item-sect">
+        <a href="http://www.localhost:3000/customer/Product/<%=shoes[index].id%>">
+          <img class="js-products-img3" src="/image/<%= shoes[index].images[0] %>" class="d-block w-100" alt="..." />
+        </a>
+        </form>
+        <p>
+          <%=shoes[index].brand%>
+        </p>
+        <p>
+          <%=shoes[index].name%>
+        </p>
+        <p>
+          <%=shoes[index].price%>
+        </p>
+      </div>
+      <% } %>
+      <br>
+
+      <h1 style="text-align: center;">HATS</h1>
+      <% for( let index=0; index < 6; index++ ) { %>
+      <div class=" col-md-3 c col-sm-4 justify-self-center" id="item-sect">
+        <a href="http://www.localhost:3000/customer/Product/<%=hats[index].id%>">
+          <img class="js-products-img3" src="/image/<%= hats[index].images[0] %>" class="d-block w-100" alt="..." />
+        </a>
+        </form>
+        <p>
+          <%=hats[index].brand%>
+        </p>
+        <p>
+          <%=hats[index].name%>
+        </p>
+        <p>
+          <%=hats[index].price%>
+        </p>
+      </div>
+      <% } %>
+      <br>
+
+    </div>
+    <%- include('./partials/footer.ejs') %>

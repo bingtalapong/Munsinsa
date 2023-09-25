@@ -1,0 +1,187 @@
+<!-- RMIT University Vietnam
+  Course: COSC2430 Web Programming
+  Semester: 2023A
+  Assessment: Assignment 2
+  Author: Nguyen Hoang Phuong, Nguyen Thach Khanh Dzi, Hanjun Lee, Taesung Yoon, Pham Le Gia Huy
+  ID: S3924593, S3980883, S3732878, S3847581, S3975371
+  Acknowledgement: Acknowledge the resources that you use here.  -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/styles.css">
+  <script src="https://kit.fontawesome.com/6f8d1d8e9d.js" crossorigin="anonymous"></script>
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <title>Register page</title>
+</head>
+
+<body>
+  <main>
+    <form method="post" action="/register/vendor" id="vendor_form" data-form-type="vendor" enctype="multipart/form-data">
+      <div id="error-message" style="color: red;"><%= error %></div>
+      <div id="general_info">
+        <div class="container input_info">
+          <!-- <%   if(typeof message != "undefined" && message) { %>
+            <p class="error-message"><%= message %></p>
+            <% }    %> -->
+          <label class="label" name="username" for="username">👦 Username</label><br>
+          <input class="input" type="text" name="username" id="username" onkeydown="checkUsername()">
+        </div>
+        <div class="container input_info">
+          <label class="label" for="phone">📱 Phone Number</label><br>
+          <input class="input" type="number" id="phone" name="phone">
+        </div>
+        <div>
+          <div class="container pass_info">
+            <label class="label" name="password" for="password">🔐 Password</label><br>
+            <input class="input" id="vendor_password" type="password" name="password" onkeyup="checkPassword();checkPasswordMatch('vendor_password', 'vendor_password2', 'vendorPasswordMatchMessage')">
+          </div>
+          <div class="">
+            <label class="label" name="passwordw" for="password">Confirm Password</label><br>
+            <input class="input" id="vendor_password2" type="password" name="password2" onkeyup="checkPassword(); checkPasswordMatch('vendor_password', 'vendor_password2', 'vendorPasswordMatchMessage')">
+            <small id="vendorPasswordMatchMessage"></small>
+          </div>
+          <p style="font-size: 20px; display: inline-block;" class='hide-show' onclick="togglePasswordVisibility('vendor_password', 'vendor_password2')">Show/Hide</p>
+
+        </div>
+        <div class="container" id="vendor_specific">
+          <div class="input_info">
+            <label class="label">🏢Business Name</label>
+            <input class="input" type="text" name="businessName">
+          </div>
+          <div class="input_info">
+            <label class="label">📇Business Address</label>
+            <input class="input" type="text" name="businessAddress">
+          </div>
+        </div>
+        <div id="image_upload" class="input_info">
+          <label class="image">Main image:</label>
+          <input type="file" name="image" class="image" style="    width: 36%;
+          color: darkgrey;" required><br>
+        </div>
+        <p style="text-align: center;">
+          Already have an account? <a style="text-decoration: none;
+          color: blanchedalmond;" href="/">Log in</a>
+        </p>
+        <!-- end -->
+        <div class="container submit">
+          <center>
+            <button id="register" type="submit">Sign up</button>
+          </center>
+        </div>
+
+        <div class="error-display">
+          <div id="errorPassword"></div>
+          <div id="error"></div>
+          <div id="valid"></div>
+          <div id="valid2"></div>
+        </div>
+
+      </div>
+      <script src="/js/function.js"></script>
+    </form>
+  </main>
+
+  <script>
+    const username = document.getElementById("username")
+    const Password = document.getElementById("vendor_password")
+
+    const error = document.getElementById('error')
+    const errorPassword = document.getElementById('errorPassword')
+    const valid = document.getElementById("valid")
+    const valid2 = document.getElementById("valid2")
+    const form = document.querySelector('form')
+
+    const label = document.querySelectorAll(".label")
+    const input = document.querySelectorAll(".input")
+    for (let i = 0; i < input.length; i++) {
+      input[i].addEventListener("click", function() {
+        for (let i = 0; i < input.length; i++) {
+          label[i].style.transform = "scale(1,1)"
+        }
+        label[i].style.transform = "scale(1.2, 1.2)"
+      })
+    }
+
+
+
+    form.addEventListener('submit', (e) => {
+      let messages = []
+      let messages2 = []
+      let validMessage = []
+      let validMessage2 = []
+
+
+      if (username.value.length >= 8 && username.value.length <= 15 && username.value.search(/[a-z]/) >= 0 && username.value.search(/[A-Z]/) >= 0) {
+        validMessage.push("Username is valid")
+      } else {
+        e.preventDefault()
+        messages2.push("Username need 1 uppercase, 1 lowercase and 1 number")
+      }
+      if (Password.value.search(/[!@#$%^&*]/) >= 0 && Password.value.search(/[0-9]/) >= 0 && Password.value.search(/[a-z]/) >= 0 && Password.value.search(/[A-Z]/) >= 0 && Password.value.length >= 8 && Password.value.length <= 20) {
+        validMessage2.push("Password is valid")
+      } else {
+        e.preventDefault()
+        messages.push("Password need 1 uppercase, 1 lowercase, 1 number and 1 special symbol")
+      }
+
+
+
+      if (messages.length > 0) {
+        errorPassword.innerHTML = messages.join(' and ')
+      }
+      if (messages.length > 0) {
+        e.preventDefault()
+        error.innerHTML = messages2.join(" and ")
+      }
+      if (messages.length > 0) {
+        valid.innerHTML = validMessage.join(" and ")
+      }
+      if (messages.length > 0) {
+        valid2.innerHTML = validMessage2.join(" and ")
+      }
+    })
+
+
+
+
+    function checkUsername() {
+      let letter2 = document.getElementById("username")
+      var lowercaseletters = /[a-z]/g
+      if (username.value.match(lowercaseletters)) {
+        letter2.classList.add('valid')
+      } else {
+        letter2.classList.add('invalid')
+      }
+      var upcaseletters = /[A-Z]/g
+      if (username.value.match(upcaseletters)) {
+        letter2.classList.add('invalid')
+      }
+      if (username.value.length >= 8 && username.value.length <= 15) {
+        letter2.classList.add('valid')
+        letter2.classList.remove('invalid')
+      } else {
+        letter2.classList.remove('valid')
+        letter2.classList.add('invalid')
+      }
+
+    }
+
+    function checkPassword() {
+      let letter = document.getElementById("vendor_password")
+      if (Password.value.length >= 8 && Password.value.length <= 20) {
+        letter.classList.add('valid')
+        letter.classList.remove('invalid')
+      } else {
+        letter.classList.remove('valid')
+        letter.classList.add('invalid')
+      }
+
+    }
+  </script>
+</body>

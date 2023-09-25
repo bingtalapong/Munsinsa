@@ -1,0 +1,53 @@
+<!-- RMIT University Vietnam
+  Course: COSC2430 Web Programming
+  Semester: 2023A
+  Assessment: Assignment 2
+  Author: Nguyen Hoang Phuong, Nguyen Thach Khanh Dzi, Hanjun Lee, Taesung Yoon, Pham Le Gia Huy
+  ID: S3924593, S3980883, S3732878, S3847581, S3975371
+  Acknowledgement: Acknowledge the resources that you use here.  -->
+
+
+<%- include('./partials/header') %> <%- include('./partials/nav') %>
+<main>
+  <div class="col-6">
+    <div class="container">
+      <% if(like.length == 0){ %>
+      <h2 style="font-family: Georgia, serif; text-align: center;">Your wish list is empty.</h2>
+      <% } %>
+
+      <% like.forEach((product)=>{ %>
+
+      <div class="card mb-3" style="max-width: 600px">
+        <div class="row g-0">
+          <div class="col-md-4">
+            <a href="http://www.localhost:3000//customer/Product/<%= product.id %>">
+              <img src="image/<%= product.image%>" class="img-fluid rounded-start" alt="..." />
+            </a>
+          </div>
+
+          <div class="col-md-8">
+            <div class="card-body">
+              <h5 class="card-title"><%=product.brand %></h5>
+              <p class="card-text"><%=product.name %></p>
+              <form action="/like/update/<%= product.id%>" method="POST" id="myForm">
+                <input id="quantity" value="Submit" type="submit" hidden="">
+              </form>
+              <br />
+              <button onclick="location.href = '/like/delete/<%= product._id%>'" type="button" class="btn btn-light">Remove</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <% })%>
+
+    </div>
+  </div>
+
+  </div>
+  </div>
+  </div>
+  <script>
+
+  </script>
+</main>
+<%- include('./partials/footer') %>
