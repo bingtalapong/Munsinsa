@@ -1,6 +1,6 @@
-Our github: https://github.com/bingtalapong/Munsinsa
+Youtube Url: https://youtu.be/CLtqavz3h98
 
-Our video URL will be upload on the github page
+
 
 First use this command in terminal:
 
