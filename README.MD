@@ -22,5 +22,6 @@ Customer:
 Shipper:
 'Phuong1239' - 'Phuong1239!'
 
+The public is heavy so we have zipped it so it can be upload on github
 
 
